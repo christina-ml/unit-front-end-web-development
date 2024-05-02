@@ -37,7 +37,7 @@ Be sure to import `useEffect()` into your component.
 import { useState, useEffect } from "react";
 ```
 
-If you want to call a function that does not update state on component mounting (in this case, on page load), use, `useEffect()`.
+If you want to call a function that does not update state on component mounting (in this case, on page load), use, `useEffect()`. Add this function for getData() and this `useEffect()` into your component, testing it in the console:
 
 ```js
 function App() {
@@ -52,7 +52,7 @@ function App() {
 
 > **Note:** Once you have tested the above code, comment it out or remove it so that your console stays clear.
 
-If you are updating state, but only want the function to run on mount, you must use a dependency array:
+If you are updating state, but only want the function to run on mount, you must use a dependency array. Let's update today's lucky number in state (a random number), by adding this `useEffect()` into your component:
 
 ```js
 useEffect(() => {
@@ -91,7 +91,7 @@ useEffect(() => {
 }, [anotherValue]);
 ```
 
-It's also best practice to call useEffect once for every concern/feature. In the case of our Daily Home Page App, we have two concerns on page load: getting a random number and setting the day.
+It's also best practice to call useEffect once for every concern/feature. In the case of our Daily Home Page App, we have two concerns on page load: getting a random number and setting the day. Add another `useEffect()` to set today's day.
 
 ```js
 // App.jsx
@@ -110,6 +110,8 @@ useEffect(() => {
 
 In this example, every time the user clicks on the `Update day` button, the day should be updated.
 
+>What happens when you click the `Update day` button? Nothing changes in state. The day is the same every time the user clicks the `Update day` button! How can we update the state for today to get a new day?
+
 You can do this by passing the `index` value into the dependency array:
 
 ```js
@@ -118,9 +120,15 @@ useEffect(() => {
 }, [index]);
 ```
 
+After passing the `index` value into the dependency array, click on the `Update day` button again. The day should now be updated each time you click! This is because the values inside the dependency array (in this case, the `index`) will determine when `useEffect()` should be called. If a dependency's value changes, `useEffect()` will be called.
+
+To clarify how this is happening: In our code, the dependency's value, `index`, in state is being updated using the `Update day` button which has an onClick event calling the `updateIndex()` function. In other words, `index` gets updated in state each time the button is clicked, affecting the dependency array in the `useEffect()` to set today's day.
+
 ## Call some functionality after state has been updated
 
 In this example, the console log will appear to be "one behind" state. This is because JavaScript is asynchronous and `console.log()` gets called before `setVibe` has completed.
+
+Add the console.log() below. As you type characters into the input field for vibe, look at the value of `vibe` in the console.log() where it appears to be "one behind" state.
 
 ```js
 function handleOnChange(event) {
@@ -128,6 +136,8 @@ function handleOnChange(event) {
   console.log(vibe);
 }
 ```
+
+Once you've tested that it's "one behind", remove the console.log().
 
 To fix this, you can create another `useEffect()` that will have a dependency of `vibe`. In this case you must pass in `vibe` as a dependency to trigger this `useEffect()`:
 
@@ -156,7 +166,7 @@ console.log(oneObj === anotherObj); // false
 
 When a component is rerendered, new objects are created every time, so the previous state objects are recreated.
 
-In this app, the header should change color when the month changes:
+In this app, the header should change color when the month changes. Add this `useEffect()`:
 
 ```js
 useEffect(() => {
@@ -202,6 +212,8 @@ Fetch requests are the same as you've done in the previous unit. `fetch` is nati
 
 - How did you control when a fetch request was called previously?
 
+Let's add this `fetch` request to our code to get a featured dog:
+
 ```js
 function getFeaturedDog() {
   fetch("https://dog.ceo/api/breeds/image/random")
@@ -215,7 +227,7 @@ function getFeaturedDog() {
 }
 ```
 
-To make the equivalent timing of `on page load` or `on component mount`; you would use `useEffect()`:
+To make the equivalent timing of `on page load` or `on component mount`; you would use `useEffect()`. Add this `useEffect()`:
 
 ```js
 useEffect(() => {
@@ -223,12 +235,14 @@ useEffect(() => {
 }, []);
 ```
 
-You could also call this function on user interaction:
+You could also call this function on user interaction. Update the `Change dog` button with an onClick event:
 
 ```js
 <button onClick={getFeaturedDog}>Change dog</button>
 ```
 
+Clicking the `Change dog` button should fetch a new dog image and update the value of `dog` in state.
+
 ## Completed build
 
-A completed build can be found [here](https://github.com/pursuit-curriculum-resources/starter-react-lifecycle-networking)
+A completed build can be found [here](https://github.com/pursuit-curriculum-resources/starter-react-lifecycle-networking/tree/solution)
