@@ -17,7 +17,7 @@ So far, you have learned how to trigger rerenders when state changes. However, t
 
 # Introduction to component lifecycle
 
-Withing a React application, components can be:
+Within a React application, components can be:
 
 - Not yet mounted (loaded) into the DOM
 - Mounted into the DOM
@@ -235,5 +235,6 @@ A missing dependency warning can have several solutions:
 
 The above reading is a non-exhaustive list of uses for `useEffect()`. However, they will be the most likely ones you will need during this course. For further study, read these docs and articles:
 
-- [React Docs Hooks](https://react.dev/reference/react)
+- [React Docs React Reference Overview](https://react.dev/reference/react)
+- [React Docs Hooks](https://react.dev/reference/react/hooks)
 - [React Docs useEffect](https://react.dev/reference/react/useEffect)
